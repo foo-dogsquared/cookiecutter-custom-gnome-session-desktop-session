@@ -1,6 +1,6 @@
 # This user service is intended to be started with gnome-session.
 [Unit]
-Description={{cookiecutter.workflow_fullname}} desktop environment
+Description={{ cookiecutter.workflow_fullname }} desktop environment
 
 After=gnome-manager-manager.target
 Requisite=gnome-session-initialized.target

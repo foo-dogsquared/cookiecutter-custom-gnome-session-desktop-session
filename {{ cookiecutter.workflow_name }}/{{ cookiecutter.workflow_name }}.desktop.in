@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name={{cookiecutter.workflow_fullname}}
+Name={{ cookiecutter.workflow_fullname }}
 Comment=Window manager
 Exec=@script@
 Categories=wlroots;Core;

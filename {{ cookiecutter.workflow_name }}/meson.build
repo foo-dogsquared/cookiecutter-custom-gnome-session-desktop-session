@@ -1,10 +1,10 @@
-project('{{cookiecutter.workflow_name}}',
-  version: '{{now 'utc', '%F'}}',
+project('{{ cookiecutter.workflow_name }}',
+  version: '{% now('utc', '%F') %}',
   license: 'GPL-3.0-or-later',
   meson_version: '>=0.54.0',
 )
 
-app_id = '{{cookiecutter.workflow_prefix}}'
+app_id = '{{ cookiecutter.workflow_prefix }}'
 prefix = get_option('prefix')
 libexecdir = join_paths(prefix, get_option('libexecdir'))
 datadir = join_paths(prefix, get_option('datadir'))
@@ -17,7 +17,7 @@ unit_name_template = app_id + '.@0@.@1@'
 required_components = { }
 
 session_dropins = [
-  'gnome-session@{{cookiecutter.workflow_name}}.target.d',
+  'gnome-session@{{ cookiecutter.workflow_name }}.target.d',
 ]
 
 session_wants = ''
@@ -30,7 +30,7 @@ sessionconf = configuration_data()
 sessionconf.set('session_wants', session_wants)
 foreach session_dropin : session_dropins
   configure_file(
-    input: '{{cookiecutter.workflow_name}}.systemd-conf.in',
+    input: '{{ cookiecutter.workflow_name }}.systemd-conf.in',
     output: 'session.conf',
     install_dir: join_paths(systemduserdir, session_dropin),
     configuration: sessionconf,
@@ -42,8 +42,8 @@ endforeach
 desktopentryconf = configuration_data()
 desktopentryconf.set('libexecdir', libexecdir)
 configure_file(
-  input: '{{cookiecutter.workflow_name}}.desktop',
-  output: '{{cookiecutter.workflow_name}}.desktop',
+  input: '{{ cookiecutter.workflow_name }}.desktop',
+  output: '{{ cookiecutter.workflow_name }}.desktop',
   install_dir: join_paths(datadir, 'wayland-sessions'),
   configuration: desktopentryconf,
   install: true,
@@ -54,7 +54,7 @@ configure_file(
 targetconf = configuration_data()
 targetconf.set('app_id', app_id)
 configure_file(
-  input: '{{cookiecutter.workflow_name}}.target',
+  input: '{{ cookiecutter.workflow_name }}.target',
   output: app_id + '.target',
   install_dir: systemduserdir,
   configuration: targetconf,
@@ -64,7 +64,7 @@ configure_file(
 serviceconf = configuration_data()
 serviceconf.set('script', get_option('service_script'))
 configure_file(
-  input: '{{cookiecutter.workflow_name}}.service',
+  input: '{{ cookiecutter.workflow_name }}.service',
   output: app_id + '.service',
   install_dir: systemduserdir,
   configuration: serviceconf,
@@ -72,7 +72,7 @@ configure_file(
 )
 
 configure_file(
-  input: '{{cookiecutter.workflow_name}}.desktop.in',
+  input: '{{ cookiecutter.workflow_name }}.desktop.in',
   output: app_id + '.desktop',
   install_dir: applicationsdir,
   configuration: serviceconf,
@@ -91,8 +91,8 @@ gnomesessionconf.set(
   ';'.join([ app_id ] + required_services) + ';'
 )
 configure_file(
-  input: '{{cookiecutter.workflow_name}}.gnome-session.in',
-  output: '{{cookiecutter.workflow_name}}.session',
+  input: '{{ cookiecutter.workflow_name }}.gnome-session.in',
+  output: '{{ cookiecutter.workflow_name }}.session',
   install_dir: datadir / 'gnome-session/sessions',
   configuration: gnomesessionconf,
   install: true,
@@ -101,8 +101,8 @@ configure_file(
 runconf = configuration_data()
 runconf.set('prefix', prefix)
 configure_file(
-  input: '{{cookiecutter.workflow_name}}.bin.in',
-  output: '{{cookiecutter.workflow_name}}-session',
+  input: '{{ cookiecutter.workflow_name }}.bin.in',
+  output: '{{ cookiecutter.workflow_name }}-session',
   install_dir: libexecdir,
   configuration: runconf,
   install: true,

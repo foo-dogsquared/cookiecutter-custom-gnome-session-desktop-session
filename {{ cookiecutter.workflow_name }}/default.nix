@@ -8,7 +8,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "{{cookiecutter.workflow_name}}-custom-desktop-session";
+  pname = "{{ cookiecutter.workflow_name }}-custom-desktop-session";
   version = "2023-08-21";
 
   src = ./.;
@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  passthru.providedSessions = [ "{{cookiecutter.workflow_name}}" ];
+  passthru.providedSessions = [ "{{ cookiecutter.workflow_name }}" ];
 
   postInstall = ''
-    wrapProgram "$out/libexec/{{cookiecutter.workflow_name}}-session" \
+    wrapProgram "$out/libexec/{{ cookiecutter.workflow_name }}-session" \
       --prefix PATH : "${lib.makeBinPath [ gnome.gnome-session ]}"
   '';
 

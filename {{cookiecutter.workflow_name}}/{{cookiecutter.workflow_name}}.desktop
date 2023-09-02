@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name={{cookiecutter.workflow_fullname}}
-Comment={{cookiecutter.workflow_description}}
-Exec=@libexecdir@/{{cookiecutter.workflow_name}}-session
-Type=Application

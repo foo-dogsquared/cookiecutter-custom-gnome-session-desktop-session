@@ -1,0 +1,4 @@
+[GNOME Session]
+Name={{ cookiecutter.workflow_fullname }} session
+# Must be in sync with gnome-session@{{ cookiecutter.workflow_name }}.target.d/session.conf drop-in.
+RequiredComponents=@required_components@

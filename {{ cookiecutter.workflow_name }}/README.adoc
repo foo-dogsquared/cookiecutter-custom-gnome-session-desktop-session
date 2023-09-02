@@ -1,4 +1,4 @@
-= {{cookiecutter.workflow_fullname}} custom session
+= {{ cookiecutter.workflow_fullname }} custom session
 :toc:
 
 Much of it is inspired from link:https://gitlab.gnome.org/World/Phosh/phosh/[Phosh session files], link:https://gitlab.gnome.org/GNOME/gnome-shell[gnome-shell session files], and link:https://gitlab.gnome.org/GNOME/gnome-settings-daemon/[gnome-settings-daemon systemd service files].
