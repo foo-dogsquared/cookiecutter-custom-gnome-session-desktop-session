@@ -14,7 +14,14 @@ systemduserdir = join_paths(systemddir, 'user')
 autostartdir = join_paths(prefix, 'etc', 'xdg', 'autostart')
 unit_name_template = app_id + '.@0@.@1@'
 
-required_components = { }
+# TODO: Add more components here. Each of the component should have a
+# description and a script key.
+required_components = {
+  #'ags': {
+  #  'description': 'Desktop widget system',
+  #  'script': get_option('ags_script'),
+  #},
+}
 
 session_dropins = [
   'gnome-session@{{ cookiecutter.workflow_name }}.target.d',
