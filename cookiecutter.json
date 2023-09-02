@@ -1,6 +1,6 @@
 {
-  "workflow_name": "custom-session",
   "workflow_fullname": "Custom desktop",
-  "workflow_prefix": "one.foodogsquared.CustomSession",
-  "workflow_description": "Custom desktop session"
+  "workflow_name": "{{cookiecutter.workflow_fullname | slugify}}",
+  "workflow_prefix": "one.foodogsquared.{{cookiecutter.workflow_fullname | replace(' ', '')}}",
+  "workflow_description": "{{cookiecutter.workflow_fullname}} desktop session"
 }
