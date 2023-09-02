@@ -1,0 +1,4 @@
+[Unit]
+@session_wants@
+
+Requires={{cookiecutter.workflow_prefix}}.target

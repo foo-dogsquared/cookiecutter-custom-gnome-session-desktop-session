@@ -1,0 +1,5 @@
+option('service_script',
+  type: 'string',
+  value: 'Hyprland',
+  description: 'Executable for the main session script.'
+)

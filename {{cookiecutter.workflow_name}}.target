@@ -1,0 +1,11 @@
+[Unit]
+Description={{cookiecutter.workflow_fullname}} session
+Documentation=man:gnome-session(1) man:systemd.special(7)
+DefaultDependencies=no
+
+Requisite=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session-initialized.target
+
+Requires=@app_id@.service
+After=@app_id@.service
