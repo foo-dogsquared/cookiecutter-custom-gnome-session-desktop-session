@@ -1,13 +1,52 @@
-= {{cookiecutter.workflow_fullname}} custom session
+= Cookiecutter custom gnome-desktop session
 :toc:
 
-Much of it is inspired from link:https://gitlab.gnome.org/World/Phosh/phosh/[Phosh session files], link:https://gitlab.gnome.org/GNOME/gnome-shell[gnome-shell session files], and link:https://gitlab.gnome.org/GNOME/gnome-settings-daemon/[gnome-settings-daemon systemd service files].
-You can also find out more details to configure gnome-session from `gnome-session(1)` manual page.
+It's a link:https://github.com/cookiecutter/cookiecutter[Cookiecutter] template for creating a custom desktop environment with link:https://gitlab.gnome.org/GNOME/gnome-session/[gnome-session] as the session manager.
+This is typically used for standalone window managers (WMs for short) (e.g., bspwm, Hyprland) and its desktop components (e.g., Polybar, eww, ags).
+The gnome-session configuration is based from link:https://gitlab.gnome.org/World/Phosh/phosh/[Phosh session files] and link:https://gitlab.gnome.org/GNOME/gnome-shell[GNOME Shell session manager files].
 
-To build this template, you have to build with link:https://mesonbuild.com/[Meson build system].
+This template is meant to be built with Meson and Nix for generating the session files.
+Furthermore, it is meant to be used for my custom workflow modules in my link:https://github.com/foo-dogsquared/nixos-config[NixOS configuration].
+As an example, you could take a look at link:https://github.com/foo-dogsquared/nixos-config/tree/6549b12436ce8c8467945d39cb34d66c36f387a3/modules/nixos/workflows/mosey-branch/config/desktop-session[Mosey Branch workflow module desktop session] as an example.
 
-[source, shell]
-----
-meson setup builddir && cd builddir
-meson compile
-----
+
+== Frequently asked questions (FAQ)
+
+[qanda]
+Why use gnome-session?::
+Two words: session management.
+Session management is pretty much essential for a better and more stable integrated workflow.
+As an example, the Mosey Branch desktop environment which is just Hyprland plus other components is launching without crashes (unlike what is reported from link:https://wiki.hyprland.org/Getting-Started/Master-Tutorial/#launching-hyprland[documentation]) all thanks to gnome-session.
+It also happens to solve some of the very nuanced problems with the typical standalone window managers such as the lack of initializing the proper environment.
+This is pretty much the problem that I had back when I using bspwm when I realized my system-wide custom environment variables are not set for whatever reason.
+The solution that I have to do (with my less knowledgeable self at the time) is to disable the display manager entirely and start the session manually in TTY.
+Same when I had used Sway back then.
++
+Session managers are typically specific to their own desktop environment such as KDE Plasma, GNOME desktop, and Cosmic desktop.
+Out of all the session managers available, gnome-session is the only customizable session manager out there allowing you to completely replace the entire GNOME session if you want to (which we will do so).
+Furthermore, it supports both systemd- and non-systemd-managed desktop sessions (but it is only nice-to-have, we're fully relying on systemd for desktop session management here).
+Most importantly, it can support both Wayland and Xorg desktop sessions which is REALLY nice (meaning we don't have to worry about session management for each case anymore).
+Dealing with those conditions in mind is not going to be great which what gnome-session does best so why not use it?
+
+Why not use systemd itself for managing those desktop sessions?::
+While you can certainly do that, gnome-session supports managing through systemd (link:https://blogs.gnome.org/benzea/2019/10/01/gnome-3-34-is-now-managed-using-systemd/[which it already does by default since 3.34]).
+We're using gnome-session since it already does what I want to do which is initializing the desktop environment appropriate for Wayland or Xorg.
+
+Why not use any other session manager?::
+Any other session managers are often specific only to Xorg (e.g., link:https://gitlab.freedesktop.org/xorg/app/xsm[xsm], link:https://github.com/jcrd/sessiond[sessiond]) or Wayland (e.g., link:https://github.com/Vladimir-csp/uwsm[uwsm]).
+gnome-session offers both and I only to have to be familiarize myself with it once since link:https://wiki.gnome.org/Projects/SessionManagement/GnomeSession[the session management process for both protocols] are the same.
+Win-win.
+
+Isn't GNOME very restrictive? This isn't very GNOME of them.::
+You can think of GNOME as a cousin of link:https://awesomewm.org/[AwesomeWM].
+GNOME is very opinioniated but it is very extensible once you've gone outside of its settings with its extensions (especially if you create your own) and its components.
+
+Why not open programs in the window managers' configuration?::
+Typically standalone window managers such as Hyprland, i3, and sway allow you to arbitrarily open programs at startup but they're not great.
+It is clunky having those essential startup process and not being able to easily debug and view them logs (unless you've configured each program to put it through a log file) unlike with gnome-session-with-systemd-managed desktop session that can be debugged a `journalctl` away.
+With this in mind, any gnome-session-configured desktop sessions means you don't have to manually open those programs in the WM configuration.
+
+Any other things to keep in mind?::
+Well, this template assumes you're going to create a desktop environment with the already existing software out there.
+You need some familiarity with the desktop components at a lower level such as systemd, dbus, and how a graphical session is managed.
+Oh right, there's also an upcoming release for xdg-desktop-portals link:https://www.bassi.io/articles/2023/05/29/configuring-portals/[allowing you to configure which portal implementations a desktop environment prefer] which is VERY NICE!
