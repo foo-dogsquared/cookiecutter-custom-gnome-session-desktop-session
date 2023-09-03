@@ -9,6 +9,10 @@ This template is meant to be built with Meson and Nix for generating the session
 As an example, you could take a look at link:https://github.com/foo-dogsquared/nixos-config/tree/6549b12436ce8c8467945d39cb34d66c36f387a3/modules/nixos/workflows/mosey-branch/config/desktop-session[Mosey Branch workflow module desktop session].
 This is meant to be customized further with the Meson build script and whatnot (just look at the `TODO` comments in the project after initializing the template).
 
+As an option, this Cookiecutter template also considers if the custom GNOME session is just modifying the current GNOME session (which is based from GNOME v44 at the time of writing).
+To do that, just set the `workflow_extends_gnome` parameter to `true`.
+This is used for creating desktop sessions like link:https://github.com/i3-gnome/i3-gnome/[i3-gnome] or just creating a minimal version of GNOME.
+
 
 == Frequently asked questions (FAQ)
 

@@ -23,6 +23,27 @@ required_components = {
   #},
 }
 
+{%- if cookiecutter.workflow_extends_gnome %}
+gnome_components = [
+  'org.gnome.SettingsDaemon.A11ySettings',
+  'org.gnome.SettingsDaemon.Color',
+  'org.gnome.SettingsDaemon.Datetime',
+  'org.gnome.SettingsDaemon.Housekeeping',
+  'org.gnome.SettingsDaemon.Keyboard',
+  'org.gnome.SettingsDaemon.MediaKeys',
+  'org.gnome.SettingsDaemon.Power',
+  'org.gnome.SettingsDaemon.PrintNotifications',
+  'org.gnome.SettingsDaemon.Rfkill',
+  'org.gnome.SettingsDaemon.ScreensaverProxy',
+  'org.gnome.SettingsDaemon.Sharing',
+  'org.gnome.SettingsDaemon.Smartcard',
+  'org.gnome.SettingsDaemon.Sound',
+  'org.gnome.SettingsDaemon.UsbProtection',
+  'org.gnome.SettingsDaemon.Wacom',
+  'org.gnome.SettingsDaemon.XSettings',
+]
+{%- endif %}
+
 session_dropins = [
   'gnome-session@{{ cookiecutter.workflow_name }}.target.d',
 ]
@@ -31,6 +52,12 @@ session_wants = ''
 foreach name, component : required_components
   session_wants += 'Wants=' + unit_name_template.format(name, 'target') + '\n'
 endforeach
+
+{%- if cookiecutter.workflow_extends_gnome %}
+foreach component : gnome_components
+  session_wants += 'Wants=' + component + '.target\n'
+endforeach
+{%- endif %}
 
 # Install each gnome-session overrides.
 sessionconf = configuration_data()
@@ -95,7 +122,7 @@ endforeach
 gnomesessionconf = configuration_data()
 gnomesessionconf.set(
   'required_components',
-  ';'.join([ app_id ] + required_services) + ';'
+  ';'.join([ app_id ] + required_services {%- if cookiecutter.workflow_extends_gnome %} + gnome_components{%- endif %}) + ';'
 )
 configure_file(
   input: '{{ cookiecutter.workflow_name }}.gnome-session.in',
