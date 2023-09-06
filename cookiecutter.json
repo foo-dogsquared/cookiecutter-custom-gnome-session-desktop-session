@@ -1,5 +1,6 @@
 {
   "workflow_fullname": "Custom desktop",
+  "workflow_version": "{% now 'utc', '%F' %}",
   "workflow_name": "{{cookiecutter.workflow_fullname | slugify}}",
   "workflow_prefix": "one.foodogsquared.{{cookiecutter.workflow_fullname | replace(' ', '')}}",
   "workflow_description": "{{cookiecutter.workflow_fullname}} desktop session",

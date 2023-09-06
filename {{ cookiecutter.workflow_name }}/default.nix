@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "{{ cookiecutter.workflow_name }}-custom-desktop-session";
-  version = "2023-08-21";
+  version = "{{ cookiecutter.workflow_version }}";
 
   src = ./.;
   nativeBuildInputs = [

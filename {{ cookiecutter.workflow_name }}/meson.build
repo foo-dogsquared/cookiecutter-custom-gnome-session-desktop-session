@@ -1,5 +1,5 @@
 project('{{ cookiecutter.workflow_name }}',
-  version: '{% now 'utc', '%F' %}',
+  version: '{{ cookiecutter.workflow_version }}',
   license: 'GPL-3.0-or-later',
   meson_version: '>=0.54.0',
 )
